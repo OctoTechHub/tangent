@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
-import "forge-std/console.sol"; // For logging
+import "forge-std/console.sol"; 
 import "../src/EthEscrow.sol";
 
 contract EthEscrowTest is Test {
