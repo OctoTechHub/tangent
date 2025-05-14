@@ -9,8 +9,7 @@ contract SmartWallet {
     address public owner;
     address public factory;
     bytes32 public uuid;
-    address public fallbackTarget;
-    address public linkedEscrow;
+    address public immutable linkedEscrow;
     bool public paused;
 
     event Received(address indexed from, uint256 amount);
@@ -49,10 +48,6 @@ contract SmartWallet {
         linkedEscrow = _linkedEscrow;
     }
 
-    function setFallbackTarget(address _target) external onlyOwner {
-        fallbackTarget = _target;
-    }
-
     function executeCall(address target, bytes calldata data) external onlyOwner whenNotPaused {
         (bool success, ) = target.call(data);
         require(success, "Call failed");
@@ -69,9 +64,11 @@ contract SmartWallet {
         emit Unpaused();
     }
 
-    function destroy() external onlyOwner {
-        emit SelfDestructed();
-        selfdestruct(payable(owner));
+    function withdraw() external onlyOwner {
+        uint256 balance = address(this).balance;
+        require(balance > 0, "No funds to withdraw");
+        (bool success, ) = owner.call{value: balance}("");
+        require(success, "Withdrawal failed");
     }
 
     receive() external payable {
@@ -84,12 +81,9 @@ contract SmartWallet {
 
     fallback() external payable {
         require(!paused, "Paused");
+        emit Received(msg.sender, msg.value);
 
-        if (fallbackTarget != address(0)) {
-            (bool success, ) = fallbackTarget.call{value: msg.value}(msg.data);
-            require(success, "Fallback call failed");
-        } else {
-            IEthEscrow(linkedEscrow).fund{value: msg.value}();
-        }
+        IEthEscrow(linkedEscrow).fund{value: msg.value}();
+        emit Forwarded(linkedEscrow, msg.value);
     }
 }
