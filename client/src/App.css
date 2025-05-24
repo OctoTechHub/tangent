@@ -1,1 +1,14 @@
-@import "tailwindcss";
+@import "tailwindcss"; 
+
+
+
+@theme {
+  --color-tg-primary: #FFFFFA;
+  --color-tg-white: #F8F8F8;
+  --color-tg-gray:#9E9E9E;
+  --color-tg-dark: #020B14;
+  --color-tg-green: #3ce034;
+  --color-tg-turqoise: #01d2d4;
+  --color-tg-blue: #1E3140;
+
+}
