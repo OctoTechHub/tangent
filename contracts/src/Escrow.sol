@@ -5,7 +5,7 @@ contract Escrow  is Initializable {
     uint256 public pin;
     bool public paused;
     uint256 public constant MAX_TRANSFER_AMOUNT = 100 ether;
-    uint256 public constant COOLDOWN_PERIOD = 1 days;
+
     uint256 public lastTransferTimestamp;
     
     event Transfer(address indexed to, uint256 amount);
@@ -17,11 +17,7 @@ contract Escrow  is Initializable {
         require(!paused, "Contract is paused");
         _;
     }
-    
-    modifier cooldownCheck() {
-        require(block.timestamp >= lastTransferTimestamp + COOLDOWN_PERIOD, "Cooldown period not elapsed");
-        _;
-    }
+
     
     // Remove the constructor and add initializer
     function initialize(uint256 _pin) public initializer {
@@ -33,7 +29,7 @@ contract Escrow  is Initializable {
         require(msg.value > 0, "Must send ETH");
     }
     
-    function transfer(address to, uint256 amount, uint256 _pin) external whenNotPaused cooldownCheck {
+    function transfer(address to, uint256 amount, uint256 _pin) external whenNotPaused  {
         require(_pin == pin, "Invalid PIN");
         require(to != address(0), "Invalid recipient");
         require(amount > 0, "Amount must be greater than 0");
@@ -74,10 +70,5 @@ contract Escrow  is Initializable {
         emit EmergencyWithdraw(balance);
     }
     
-    function getTimeUntilNextTransfer() external view returns (uint256) {
-        if (block.timestamp >= lastTransferTimestamp + COOLDOWN_PERIOD) {
-            return 0;
-        }
-        return (lastTransferTimestamp + COOLDOWN_PERIOD) - block.timestamp;
-    }
+
 }
