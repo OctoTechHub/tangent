@@ -6,16 +6,21 @@ interface IEscrow {
     function transfer(address to, uint256 amount, uint256 pinHash) external;
     function getBalance() external view returns (uint256);
 }
-
+import {Initializable} from "openzeppelin-contracts/contracts/proxy/utils/Initializable.sol";
 /**
  * @title SmartWallet
  * @dev A smart wallet contract that interfaces with an escrow system
  * @notice This contract manages deposits, transfers, and emergency controls
  */
-contract SmartWallet {
-    IEscrow public immutable escrow;
+contract SmartWallet is Initializable {
+    IEscrow public escrow;
     bool public paused;
     bytes32 public pinHash;
+
+    // User details
+    string public name;
+    string public occupation;
+    string public details;
 
     // Events
     event Paused();
@@ -23,6 +28,7 @@ contract SmartWallet {
     event DepositReceived(address indexed from, uint256 amount);
     event TransferInitiated(address indexed to, uint256 amount);
     event PinChanged();
+    event UserDetailsSet(string name, string occupation, string details);
 
     // TODO: Add identity component fields
     // bytes32 public uuid;
@@ -39,15 +45,22 @@ contract SmartWallet {
     }
 
     /**
-     * @dev Constructor sets up the escrow contract and initial PIN
+     * @dev Initializer instead of constructor for use with clones
      * @param _escrow Address of the escrow contract
      * @param _pin Initial PIN for the wallet
+     * @param _name User's name
+     * @param _occupation User's occupation
+     * @param _details General user details
      */
-    constructor(address _escrow, uint256 _pin) {
+    function initialize(address _escrow, uint256 _pin, string memory _name, string memory _occupation, string memory _details) public initializer {
         require(_escrow != address(0), "Invalid escrow address");
         require(_pin != 0, "Invalid PIN");
         escrow = IEscrow(_escrow);
         pinHash = keccak256(abi.encodePacked(_pin));
+        name = _name;
+        occupation = _occupation;
+        details = _details;
+        emit UserDetailsSet(_name, _occupation, _details);
     }
 
     /**

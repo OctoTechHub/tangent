@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
-contract Escrow {
-    uint256 public immutable pin;
+import {Initializable} from "openzeppelin-contracts/contracts/proxy/utils/Initializable.sol";
+contract Escrow  is Initializable {
+    uint256 public pin;
     bool public paused;
     uint256 public constant MAX_TRANSFER_AMOUNT = 100 ether;
     uint256 public constant COOLDOWN_PERIOD = 1 days;
@@ -23,7 +23,8 @@ contract Escrow {
         _;
     }
     
-    constructor(uint256 _pin) {
+    // Remove the constructor and add initializer
+    function initialize(uint256 _pin) public initializer {
         require(_pin != 0, "Invalid PIN");
         pin = _pin;
     }
