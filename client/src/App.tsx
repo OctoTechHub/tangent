@@ -9,7 +9,7 @@ function App() {
       {/* <NewCard /> */}
       <Card
         name="John Doe"
-        alignment="vertical"
+        alignment="slanting"
         number='1234 5678 9012 3456'
       />
     </>

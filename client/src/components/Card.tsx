@@ -1,7 +1,8 @@
 import React from "react";
-// import chipIcon from "../assets/exisitng-card/card.svg";
 import logoIcon from "../assets/Onboarding/Logo.svg";
-import nfcIcon from "../assets/exisitng-card/logo.svg";
+import nfcIcon from "../assets/nfc.svg";
+import chip from "../assets/chip.svg";
+import backdrop from "../assets/card.svg";
 
 interface CardProps {
   name: string;
@@ -14,35 +15,70 @@ const Card: React.FC<CardProps> = ({
   number,
   alignment = "vertical",
 }) => {
+  const getTransform = () => {
+    switch (alignment) {
+      case "vertical":
+        return "rotate(90deg)";
+      case "slanting":
+        return "rotate(-15deg)";
+      default:
+        return "none";
+    }
+  };
+
   return (
-    <div className="relative w-[510px] h-[310px] rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-[#1A2237] via-[#2B3A55] to-[#0F1620] text-white p-6 flex flex-col justify-between">
-      {/* Top Left - Branding and Chip */}
-      <div className="flex flex-col gap-2">
-        <p
-          className="text-2xl font-semibold"
-          style={{ fontFamily: "Bruno-Ace" }}
-        >
-          Tangent
-        </p>
-        <div className="w-10 h-6 bg-gray-400 rounded" />
-        <p
-          className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#E0E0E0] via-white to-[#B0BEC5] tracking-widest"
-          style={{ fontFamily: "Bruno-Ace" }}
-        >
-          {number}
-        </p>
+    <div
+      className="relative w-[600px] h-[400px] rounded-2xl overflow-hidden shadow-2xl text-white p-0 flex flex-col justify-between transition-transform duration-500 ease-in-out"
+      style={{
+        transform: getTransform(),
+        backgroundImage: `url(${backdrop})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        borderRadius: "24px",
+        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+      }}
+    >
+      {/* Tangent Top Left */}
+      <p
+        className="absolute left-10 top-10 text-4xl font-normal tracking-widest"
+        style={{ fontFamily: "Bruno-Ace", letterSpacing: "0.12em" }}
+      >
+        TANGENT
+      </p>
+
+      {/* Chip + NFC */}
+      <div className="absolute left-10 top-32 flex items-center gap-4">
+        <img
+          src={chip}
+          alt="Chip"
+          className="w-20 h-14 object-contain"
+  
+        />
+        <img src={nfcIcon} alt="NFC" className="w-14 h-14 object-contain" />
       </div>
 
-      {/* Bottom Row - Name and Logo */}
-      <div className="flex items-center justify-between z-10">
-        <p className="text-lg font-medium" style={{ fontFamily: "Sora" }}>
-          {name}
-        </p>
-        <img src={logoIcon} alt="Logo" className="w-10 h-10 object-contain" />
-      </div>
+      {/* Card Number */}
+      <p
+        className="absolute left-10 bottom-24 text-3xl font-semibold tracking-widest"
+        style={{ fontFamily: "Sora", letterSpacing: "0.1em" }}
+      >
+        {number}
+      </p>
 
-      {/* NFC Icon */}
-      <img className="absolute top-4 right-4 w-6 h-6" src={nfcIcon} alt="NFC" />
+      {/* Name */}
+      <p
+        className="absolute left-10 bottom-14 text-xl font-semibold tracking-[0.25em]"
+        style={{ fontFamily: "Sora", letterSpacing: "0.25em" }}
+      >
+        {name.toUpperCase()}
+      </p>
+
+      {/* Logo */}
+      <img
+        src={logoIcon}
+        alt="Logo"
+        className="absolute right-14 bottom-10 w-20 h-20 object-contain"
+      />
     </div>
   );
 };
