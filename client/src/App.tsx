@@ -1,11 +1,13 @@
 import './App.css'
-import Onboarding from './components/Onboarding'
+import InfoScreen from './components/Onboarding/InfoScreen'
+import Onboarding from './components/Onboarding/Onboarding'
 
 function App() {
   return (
     <>
-    <Onboarding/>
-      <div className="flex flex-col gap-4 p-4">
+    {/* <Onboarding/> */}
+    <InfoScreen/>
+      {/* <div   className="flex flex-col gap-4 p-4">
         <div className="bg-tg-primary p-4">Primary Color</div>
         <div className="bg-tg-white p-4">White Color</div>
         <div className="bg-tg-gray p-4">Gray Color</div>
@@ -13,7 +15,7 @@ function App() {
         <div className="bg-tg-green p-4">Green Color</div>
         <div className="bg-tg-turqoise p-4">Turquoise Color</div>
         <div className="bg-tg-blue text-white p-4">Blue Color</div>
-      </div>
+      </div> */}
     </>
   )
 }
