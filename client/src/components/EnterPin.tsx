@@ -5,7 +5,6 @@ export default function EnterPin() {
     const [pin, setPin] = useState<string[]>(Array(5).fill(''));
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-    // Focus the first input on component mount
     useEffect(() => {
         if (inputRefs.current[0]) {
             inputRefs.current[0].focus();
@@ -13,12 +12,11 @@ export default function EnterPin() {
     }, []);
 
     const handleChange = (index: number, value: string) => {
-        if (/^\d*$/.test(value)) { // Only allow digits
+        if (/^\d*$/.test(value)) { 
             const newPin = [...pin];
             newPin[index] = value;
             setPin(newPin);
 
-            // Auto-focus next input if a digit was entered
             if (value && index < pin.length - 1) {
                 inputRefs.current[index + 1]?.focus();
             }
@@ -27,14 +25,12 @@ export default function EnterPin() {
 
     const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Backspace' && !pin[index] && index > 0) {
-            // Move focus to previous input on backspace if current is empty
             inputRefs.current[index - 1]?.focus();
         }
     };
 
     const handleSubmit = () => {
         if (pin.every(digit => digit !== '')) {
-            // Handle PIN submission
             console.log('Submitted PIN:', pin.join(''));
         }
     };
@@ -70,7 +66,6 @@ export default function EnterPin() {
                     ))}
                 </div>
 
-                {/* Submit button */}
                 <button 
                     className={`mt-12 h-14 rounded-xl text-base font-medium hover:bg-gray-200 w-full max-w-xs ${
                         pin.every(digit => digit !== '') 

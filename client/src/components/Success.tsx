@@ -1,4 +1,3 @@
-import React from 'react';
 import successIcon from '../assets/Onboarding/success.svg';
 import Button from './Button';
 import confetti from "../assets/new-card/Animation 1748078611003.json";

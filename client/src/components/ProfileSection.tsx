@@ -21,8 +21,7 @@ export default function ProfileSection(){
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         console.log(formData);
     };
 
@@ -116,7 +115,7 @@ export default function ProfileSection(){
                             />
                         </div>
                         <Button
-                            type="submit"
+                            onClick={handleSubmit}
                             className="w-full bg-gray-800 text-white py-3 rounded-xl hover:bg-gray-700 mt-6"
                         >
                             Continue
