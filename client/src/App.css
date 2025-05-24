@@ -1,5 +1,25 @@
 @import "tailwindcss"; 
 
+@font-face {
+  font-family: 'Sora';
+  src: url('./assets/fonts/Sora-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face{
+  font-family:'Bruno-Ace';
+  src:url('./assets/fonts/BrunoAce-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{
+  font-family:'Inter';
+  src:url('./assets/fonts/Inter-VariableFont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 
 @theme {
