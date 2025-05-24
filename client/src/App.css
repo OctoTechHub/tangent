@@ -19,7 +19,12 @@
   font-weight: normal;
   font-style: normal;
 }
-
+@font-face{
+  font-family: 'Isotok';
+  src:url('./assets/fonts/IstokWeb-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 
 @theme {
