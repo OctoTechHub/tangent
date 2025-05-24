@@ -1,15 +1,17 @@
 import './App.css'
-
+import Card from './components/Card'
 import CardTapScreen from './components/CardTapScreen'
-import ProfileSection from './components/ProfileSection'
+import NewCard from './pages/NewCard'
 function App() {
   return (
     <>
-      <CardTapScreen />
-      <ProfileSection/>
-
-    
-
+      {/* <CardTapScreen /> */}
+      {/* <NewCard /> */}
+      <Card
+        name="John Doe"
+        alignment="vertical"
+        number='1234 5678 9012 3456'
+      />
     </>
   )
 }
