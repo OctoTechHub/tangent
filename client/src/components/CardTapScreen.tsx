@@ -11,18 +11,19 @@ export default function CardTapScreen() {
                 alt="Navigate" 
                 className="absolute top-5 left-5 cursor-pointer"
             />
-            <div className="flex flex-col  mb-7 items-center gap-5">
-                <img src={logoIcon} alt="Logo" className="max-w-[200px]" />
+            <div className="flex flex-col  items-center gap-5">
+                <img src={logoIcon} alt="Logo" className="max-w-[200px] mt-21" />
                 <div className="text-center">
-                    <h2 className="mb-2.5 font-semibold text-2xl">Tap your Card to Begin</h2>
+                    <h2 className="mb-2.5 font-semibold text-3xl">Tap your Card to Begin</h2>
                     <p className="text-[#666] font-semibold text-sm">Hold the top of your phone near.</p>
                     <p className="text-[#666] font-semibold text-sm"> the Tangent Card to scan.</p>
                 </div>
-                <div className="relative flex justify-center">
+                <div className="relative flex justify-center mt-12">
                     <img src={shadowEllipse} alt="Shadow" className="absolute -bottom-5 z-[1]" />
                     <img src={cardIcon} alt="Card" className="relative z-[2]" />
                 </div>
             </div>
         </div>
+      
     )
 }
